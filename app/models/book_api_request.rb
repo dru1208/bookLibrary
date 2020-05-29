@@ -1,8 +1,8 @@
 class BookApiRequest
-  attr_reader :page, :query, :reserved
+  attr_reader :page_number, :query, :reserved
 
   def initialize(page_param, search_query_param, reserved_param)
-    @page = process_page_param(page_param)
+    @page_number = process_page_param(page_param)
     @query = process_search_query_param(search_query_param)
     @reserved = process_reserved_param(reserved_param)
   end

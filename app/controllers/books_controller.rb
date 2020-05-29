@@ -10,9 +10,8 @@ class BooksController < ActionController::Base
 
     book_library = ::BookLibrary.instance
 
-    # resp = book_library.get_books_and_collection_info(page, query, reserved)
+    resp = book_library.get_books_and_collection_info(request)
 
-    resp = book_library.test_request(request)
 
     render :json => resp.as_json
   end

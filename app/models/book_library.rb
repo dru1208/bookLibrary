@@ -23,11 +23,16 @@ class BookLibrary
     get_books_and_collection_info(request.page, request.query, request.reserved)
   end
 
-  def get_books_and_collection_info(page_number, query, reserved)
+  def get_books_and_collection_info(request)
+    query = request.query
+    page_number = request.page_number
+    reserved = request.reserved
+
     books = filtered_books(query, reserved)
     paginated_books = get_books_by_page(page_number, books)
     total_pages = calculate_total_pages(books.count)
     current_page = page_number > total_pages ? total_pages : page_number
+
     {
       books: paginated_books,
       totalPages: total_pages,
