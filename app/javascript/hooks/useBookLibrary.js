@@ -20,6 +20,16 @@ const useBookLibrary = () => {
       .catch(e => console.error(e))
   }
 
+  const reserveBookApiCall = (id) => {
+    axios
+      .post("/books", {
+        id
+      })
+      .then((resp) => {
+        bookApiCall(page, query, reserved)
+      })
+  }
+
   useEffect(() => {
     bookApiCall(currentPage, query, reserved)
   }, [])
@@ -52,7 +62,8 @@ const useBookLibrary = () => {
     onSearchTriggered,
     onViewAll,
     reserved,
-    flipReserved
+    flipReserved,
+    reserveBookApiCall
   }
 }
 

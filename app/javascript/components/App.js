@@ -19,7 +19,8 @@ const App = () => {
     onSearchTriggered,
     onViewAll,
     reserved,
-    flipReserved
+    flipReserved,
+    reserveBookApiCall
   } = useBookLibrary()
 
   return (
@@ -33,7 +34,10 @@ const App = () => {
         reserved={reserved}
         flipReserved={flipReserved}
       />
-      <BookListings books={books} />
+      <BookListings
+        books={books}
+        reserveBookApiCall={reserveBookApiCall}
+      />
       <PageSelection
         totalPages={totalPages}
         currentPage={currentPage}

@@ -1,7 +1,7 @@
 import React from "react"
 
-const BookListing = ({ book }) => {
-  const { title, author, quantity } = book
+const BookListing = ({ book, reserveBookApiCall }) => {
+  const { title, author, quantity, id } = book
 
   const quantityForDisplay = (count) => {
     if (count > 1) {
@@ -13,6 +13,10 @@ const BookListing = ({ book }) => {
     }
   }
 
+  const onReserve = () => {
+    reserveBookApiCall(id)
+  }
+
   return (
     <div className="listing-container">
       <div className="listing-title">{title}</div>
@@ -20,7 +24,7 @@ const BookListing = ({ book }) => {
       <div className="listing-quantity">{quantityForDisplay(quantity)}</div>
       {
         quantity > 0 ?
-        <button className="listing-reserve">Reserve</button> :
+        <button className="listing-reserve" onClick={onReserve}>Reserve</button> :
         <div className="listing-reserve" />
       }
     </div>
