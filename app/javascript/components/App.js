@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 
-import BookListings from "./BookListing.jsx"
+import BookListings from "./BookListings.jsx"
 import PageSelection from "./PageSelection.jsx"
 
 const App = () => {
