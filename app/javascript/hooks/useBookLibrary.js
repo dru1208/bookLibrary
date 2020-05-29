@@ -7,14 +7,14 @@ const useBookLibrary = () => {
   const [totalPages, setTotalPages] = useState(1)
   const [query, setQuery] = useState("")
 
-  const bookApiCall = (page, cb) => {
+  const bookApiCall = (page) => {
     axios
       .get(`/books?page=${page}`)
       .then((resp) => {
         const { data } = resp
         setBooks(data.books)
         setTotalPages(data.totalPages)
-        cb()
+        setCurrentPage(data.currentPage)
       })
       .catch(e => console.error(e))
   }
@@ -24,8 +24,7 @@ const useBookLibrary = () => {
   }, [])
 
   const onCurrentPageSelection = (newPageNumber) => {
-    const cb = () => setCurrentPage(newPageNumber)
-    bookApiCall(newPageNumber, cb)
+    bookApiCall(newPageNumber)
   }
 
   const onSearchTriggered = () => {
