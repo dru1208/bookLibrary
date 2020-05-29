@@ -7,12 +7,15 @@ const useBookLibrary = () => {
   const [totalPages, setTotalPages] = useState(1)
 
   const bookApiCall = (page, cb) => {
-    axios.get(`/books?page=${page}`).then((resp) => {
-      const { data } = resp
-      setBooks(data.books)
-      setTotalPages(data.totalPages)
-      cb()
-    })
+    axios
+      .get(`/books?page=${page}`)
+      .then((resp) => {
+        const { data } = resp
+        setBooks(data.books)
+        setTotalPages(data.totalPages)
+        cb()
+      })
+      .catch(e => console.error(e))
   }
 
   useEffect(() => {
