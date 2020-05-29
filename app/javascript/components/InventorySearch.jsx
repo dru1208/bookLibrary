@@ -2,7 +2,7 @@ import React from "react"
 
 import "../styles/InventorySearch.css"
 
-const InventorySearch = ({ query, onQueryUpdate, onSearchTriggered }) => {
+const InventorySearch = ({ query, onQueryUpdate, onSearchTriggered, onViewAll }) => {
 
   const onChange = (e) => {
     const newQuery = e.target.value
@@ -15,6 +15,7 @@ const InventorySearch = ({ query, onQueryUpdate, onSearchTriggered }) => {
       <div className="search-bar-container">
         <input className="search-bar-content" type="text" value={query} onChange={onChange} />
         <button className="search-bar-content" onClick={onSearchTriggered}>Search</button>
+        <button className="search-bar-content" onClick={onViewAll}>View All</button>
       </div>
     </div>
   )

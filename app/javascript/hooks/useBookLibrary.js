@@ -31,6 +31,11 @@ const useBookLibrary = () => {
     bookApiCall(1, query)
   }
 
+  const onViewAll = () => {
+    bookApiCall(1, "")
+    setQuery("")
+  }
+
   return {
     books,
     currentPage,
@@ -38,7 +43,8 @@ const useBookLibrary = () => {
     onCurrentPageSelection,
     query,
     onQueryUpdate: setQuery,
-    onSearchTriggered
+    onSearchTriggered,
+    onViewAll
   }
 }
 

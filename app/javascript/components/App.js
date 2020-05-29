@@ -16,7 +16,8 @@ const App = () => {
     onCurrentPageSelection,
     query,
     onQueryUpdate,
-    onSearchTriggered
+    onSearchTriggered,
+    onViewAll
   } = useBookLibrary()
 
   return (
@@ -26,6 +27,7 @@ const App = () => {
         query={query}
         onQueryUpdate={onQueryUpdate}
         onSearchTriggered={onSearchTriggered}
+        onViewAll={onViewAll}
       />
       <BookListings books={books} />
       <PageSelection
