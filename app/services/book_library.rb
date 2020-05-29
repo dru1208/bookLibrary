@@ -12,9 +12,16 @@ class BookLibrary
       {"id": 9, "title": "Fullstack Vue", "author": "Hassan Djirdeh", "quantity": 3},
       {"id": 10, "title": "Vue.js 2 and Bootstrap 4 Web Development", "author": "Olga Filipova", "quantity": 21}
     ]
+    @page_size = 3
   end
 
   def get_books
     @books
+  end
+
+  def get_books_by_page(page_number)
+    total_books = @books.count
+    subset_start_index = page_number * 3 - 3
+    @books[subset_start_index, @page_size]
   end
 end
