@@ -6,25 +6,29 @@ const useBookLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
 
-  const bookApiCall = (page) => {
+  const bookApiCall = (page, cb) => {
     axios.get(`/books?page=${page}`).then((resp) => {
       const { data } = resp
       setBooks(data.books)
       setTotalPages(data.totalPages)
+      cb()
     })
   }
 
   useEffect(() => {
-    bookApiCall(currentPage)
+    bookApiCall(currentPage, () => {})
   }, [])
+
+  const onCurrentPageSelection = (newPageNumber) => {
+    const cb = () => setCurrentPage(newPageNumber)
+    bookApiCall(newPageNumber, cb)
+  }
 
   return {
     books,
     currentPage,
     totalPages,
-    setBooks,
-    setCurrentPage,
-    setTotalPages
+    onCurrentPageSelection,
   }
 }
 
