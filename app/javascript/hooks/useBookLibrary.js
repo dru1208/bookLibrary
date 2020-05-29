@@ -22,12 +22,9 @@ const useBookLibrary = () => {
 
   const reserveBookApiCall = (id) => {
     axios
-      .post("/books", {
-        id
-      })
-      .then((resp) => {
-        bookApiCall(page, query, reserved)
-      })
+      .post("/books", { id })
+      .then((resp) => { bookApiCall(currentPage, query, reserved) })
+      .catch(e => console.error(e))
   }
 
   useEffect(() => {
