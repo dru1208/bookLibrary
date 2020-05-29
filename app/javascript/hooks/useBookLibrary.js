@@ -5,6 +5,7 @@ const useBookLibrary = () => {
   const [books, setBooks] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [query, setQuery] = useState("")
 
   const bookApiCall = (page, cb) => {
     axios
@@ -27,11 +28,19 @@ const useBookLibrary = () => {
     bookApiCall(newPageNumber, cb)
   }
 
+  const onSearchTriggered = () => {
+    console.log("this is the search query", query)
+    setQuery("")
+  }
+
   return {
     books,
     currentPage,
     totalPages,
     onCurrentPageSelection,
+    query,
+    onQueryUpdate: setQuery,
+    onSearchTriggered
   }
 }
 

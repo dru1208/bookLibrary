@@ -11,15 +11,22 @@ import PageSelection from "./PageSelection.jsx"
 const App = () => {
   const {
     books,
-    currentPage,
     totalPages,
-    onCurrentPageSelection
+    currentPage,
+    onCurrentPageSelection,
+    query,
+    onQueryUpdate,
+    onSearchTriggered
   } = useBookLibrary()
 
   return (
     <div>
       <h1 className="header">Book Collection</h1>
-      <InventorySearch />
+      <InventorySearch
+        query={query}
+        onQueryUpdate={onQueryUpdate}
+        onSearchTriggered={onSearchTriggered}
+      />
       <BookListings books={books} />
       <PageSelection
         totalPages={totalPages}
