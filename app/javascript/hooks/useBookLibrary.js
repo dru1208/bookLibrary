@@ -7,9 +7,9 @@ const useBookLibrary = () => {
   const [totalPages, setTotalPages] = useState(1)
   const [query, setQuery] = useState("")
 
-  const bookApiCall = (page) => {
+  const bookApiCall = (page, query) => {
     axios
-      .get(`/books?page=${page}`)
+      .get(`/books?page=${page}&query=${query}`)
       .then((resp) => {
         const { data } = resp
         setBooks(data.books)
@@ -20,16 +20,15 @@ const useBookLibrary = () => {
   }
 
   useEffect(() => {
-    bookApiCall(currentPage, () => {})
+    bookApiCall(currentPage, query)
   }, [])
 
   const onCurrentPageSelection = (newPageNumber) => {
-    bookApiCall(newPageNumber)
+    bookApiCall(newPageNumber, query)
   }
 
   const onSearchTriggered = () => {
-    console.log("this is the search query", query)
-    setQuery("")
+    bookApiCall(1, query)
   }
 
   return {
