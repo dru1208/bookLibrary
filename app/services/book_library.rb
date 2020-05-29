@@ -19,6 +19,10 @@ class BookLibrary
     @books
   end
 
+  def get_reserved_books
+    @books.select { |book| book[:quantity] == 0 }
+  end
+
   def get_books_by_page(page_number)
     total_books = @books.count
     subset_start_index = page_number * 3 - 3
