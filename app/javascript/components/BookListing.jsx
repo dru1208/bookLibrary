@@ -18,7 +18,11 @@ const BookListing = ({ book }) => {
       <div className="listing-title">{title}</div>
       <div className="listing-author">{author}</div>
       <div className="listing-quantity">{quantityForDisplay(quantity)}</div>
-      <button className="listing-reserve">Reserve</button>
+      {
+        quantity > 0 ?
+        <button className="listing-reserve">Reserve</button> :
+        <div className="listing-reserve" />
+      }
     </div>
   )
 }
