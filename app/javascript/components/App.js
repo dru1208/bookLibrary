@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 
+import BookListing from "./BookListing"
+
 const App = () => {
   const [books, setBooks] = useState([])
 
@@ -14,6 +16,11 @@ const App = () => {
   return (
     <div>
       <h1>Book Collection</h1>
+      {
+        books.map((book, index) => {
+          return <BookListing key={index} book={book} />
+        })
+      }
     </div>
   )
 }
