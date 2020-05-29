@@ -16,7 +16,14 @@ const InventorySearch = ({ query, onQueryUpdate, onSearchTriggered, onViewAll, r
         <div className="search-bar-subcontainer">
           <input className="search-bar-content" type="text" value={query} onChange={onChange} />
           <label className="search-bar-content" htmlFor="reserved">Reserved:</label>
-          <input className="search-bar-content" type="checkbox" checked={reserved} onChange={flipReserved} name="reserved" />
+          <input
+            className="search-bar-content"
+            type="checkbox"
+            checked={reserved}
+            onClick={flipReserved}
+            onChange={() => {}}
+            name="reserved"
+          />
         </div>
         <div className="search-bar-subcontainer">
           <button className="search-bar-content" onClick={onSearchTriggered}>Search</button>
