@@ -52,7 +52,7 @@ class BookLibrary
 
   def get_books_by_page(page_number, books)
     start_index = calculate_start_index(page_number, calculate_total_pages(books.count))
-    books[start_index, @page_size]
+    books[start_index, @page_size] || []
   end
 
   def calculate_start_index(page_number, total_pages_num)
