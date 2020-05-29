@@ -1,9 +1,19 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import axios from "axios"
 
 const App = () => {
+  const [books, setBooks] = useState([])
+
+  useEffect(() => {
+    axios.get("/books").then((resp) => {
+      const booksFromLibrary = resp.data
+      setBooks(booksFromLibrary)
+    })
+  }, [])
+
   return (
     <div>
-      <div>Hello World</div>
+      <h1>Book Collection</h1>
     </div>
   )
 }
