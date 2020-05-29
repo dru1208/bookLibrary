@@ -8,7 +8,7 @@ const useBookLibrary = () => {
   const [query, setQuery] = useState("")
   const [reserved, setReserved] = useState(false)
 
-  const bookApiCall = (page, query) => {
+  const bookApiCall = (page, query, reserved) => {
     axios
       .get(`/books?page=${page}&query=${query}&reserved=${reserved}`)
       .then((resp) => {
@@ -21,20 +21,21 @@ const useBookLibrary = () => {
   }
 
   useEffect(() => {
-    bookApiCall(currentPage, query)
+    bookApiCall(currentPage, query, reserved)
   }, [])
 
   const onCurrentPageSelection = (newPageNumber) => {
-    bookApiCall(newPageNumber, query)
+    bookApiCall(newPageNumber, query, reserved)
   }
 
   const onSearchTriggered = () => {
-    bookApiCall(1, query)
+    bookApiCall(1, query, reserved)
   }
 
   const onViewAll = () => {
-    bookApiCall(1, "")
+    bookApiCall(1, "", false)
     setQuery("")
+    flipReserved()
   }
 
   const flipReserved = () => {
