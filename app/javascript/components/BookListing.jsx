@@ -1,7 +1,5 @@
 import React from "react"
 
-import "../styles/BookListing.css"
-
 const BookListing = ({ book }) => {
   const { title, author, quantity } = book
 
