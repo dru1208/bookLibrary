@@ -1,4 +1,6 @@
 class BooksController < ActionController::Base
+  protect_from_forgery with: :null_session
+
   def index
     request = ::BookApiRequest.new(params[:page], params[:query], params[:reserved])
 
@@ -8,5 +10,12 @@ class BooksController < ActionController::Base
 
 
     render :json => resp.as_json
+  end
+
+  def update
+    puts params[:id]
+    puts "we hit this"
+
+    head :no_content
   end
 end
