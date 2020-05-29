@@ -2,13 +2,13 @@ import React from "react"
 
 import "../styles/PageSelectionButton.css"
 
-const PageSelectionButton = ({ pageNumber, selected, setCurrentPage }) => {
+const PageSelectionButton = ({ pageNumber, selected, onCurrentPageSelection }) => {
   const className = `page-selection-button ${selected ? "selected" : ""}`
   return (
     <>
       <button
         className={className}
-        onClick={() => setCurrentPage(pageNumber)}
+        onClick={() => onCurrentPageSelection(pageNumber)}
       >
         Page {pageNumber}
       </button>

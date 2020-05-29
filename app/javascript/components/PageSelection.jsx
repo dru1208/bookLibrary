@@ -4,7 +4,7 @@ import PageSelectionButton from "./PageSelectionButton.jsx"
 
 import "../styles/PageSelection.css"
 
-const PageSelection = ({ totalPages, currentPage, setCurrentPage }) => {
+const PageSelection = ({ totalPages, currentPage, onCurrentPageSelection }) => {
   const range = [...Array(totalPages).keys()]
   return (
     <div className="page-selection-container">
@@ -16,7 +16,7 @@ const PageSelection = ({ totalPages, currentPage, setCurrentPage }) => {
             <PageSelectionButton
               key={index}
               pageNumber={pageNumber}
-              setCurrentPage={setCurrentPage}
+              onCurrentPageSelection={onCurrentPageSelection}
               selected={selected}
             />
           )

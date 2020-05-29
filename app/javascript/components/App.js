@@ -10,9 +10,7 @@ const App = () => {
     books,
     currentPage,
     totalPages,
-    setBooks,
-    setCurrentPage,
-    setTotalPages
+    onCurrentPageSelection
   } = useBookLibrary()
 
   return (
@@ -22,7 +20,7 @@ const App = () => {
       <PageSelection
         totalPages={totalPages}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        onCurrentPageSelection={onCurrentPageSelection}
       />
     </div>
   )
