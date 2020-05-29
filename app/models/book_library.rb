@@ -1,4 +1,8 @@
+require 'singleton'
+
 class BookLibrary
+  include Singleton
+
   def initialize()
     @books = [
       {"id": 1, "title": "Python Crash Course", "author": "Eric Matthes", "quantity": 5},
