@@ -19,34 +19,32 @@ class BookLibrary
     @page_size = 3
   end
 
-  # def get_reserved_books
-  #   @books.select { |book| book[:quantity] == 0 }
-  # end
-
-  def get_books_and_collection_info(page_number, query)
-    if query.blank?
-      paginated_books = get_books_by_page(page_number, @books)
-      total_pages = calculate_total_pages(@books.count)
-      current_page = page_number > total_pages ? total_pages : page_number
-      {
-        books: paginated_books,
-        totalPages: total_pages,
-        currentPage: current_page
-      }
-    else
-      filtered = filter_books_by_query(query)
-      paginated_books = get_books_by_page(page_number, filtered)
-      total_pages = calculate_total_pages(filtered.count)
-      current_page = page_number > total_pages ? total_pages : page_number
-      {
-        books: paginated_books,
-        totalPages: total_pages,
-        currentPage: current_page
-      }
-    end
+  def get_books_and_collection_info(page_number, query, reserved)
+    books = filtered_books(query, reserved)
+    paginated_books = get_books_by_page(page_number, books)
+    total_pages = calculate_total_pages(books.count)
+    current_page = page_number > total_pages ? total_pages : page_number
+    {
+      books: paginated_books,
+      totalPages: total_pages,
+      currentPage: current_page
+    }
   end
 
   private
+
+  # methods for initial filtering of book collection
+
+  def filtered_books(query, reserved)
+    books = @books
+    books = filter_books_by_query(query) unless query.blank?
+    books = reserved_only(books) if reserved
+    books
+  end
+
+  def reserved_only(books)
+    books.select { |book| book[:quantity] == 0 }
+  end
 
   # methods for accessing the books on a specific page
 
