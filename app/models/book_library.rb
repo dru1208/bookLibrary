@@ -19,6 +19,17 @@ class BookLibrary
     @page_size = 3
   end
 
+  def valid_reservation(book_id)
+    @books.find { |book| book[:id] == book_id }.present?
+  end
+
+  def reserve_book(book_id)
+    @books = @books.map do |book|
+      book[:quantity] = book[:quantity] - 1 if book[:id] == book_id && book[:quantity] > 0
+      book
+    end
+  end
+
   def test_request(request)
     get_books_and_collection_info(request.page, request.query, request.reserved)
   end
