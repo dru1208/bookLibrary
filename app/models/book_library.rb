@@ -19,6 +19,10 @@ class BookLibrary
     @page_size = 3
   end
 
+  def test_request(request)
+    get_books_and_collection_info(request.page, request.query, request.reserved)
+  end
+
   def get_books_and_collection_info(page_number, query, reserved)
     books = filtered_books(query, reserved)
     paginated_books = get_books_by_page(page_number, books)
