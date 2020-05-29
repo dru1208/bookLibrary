@@ -4,10 +4,11 @@ class BooksController < ActionController::Base
     page = raw_page > 0 ? raw_page : 1
     raw_query = params[:query]
     query = raw_query.present? ? raw_query : ''
+    reserved = params[:reserved] == 'true'
 
     book_library = ::BookLibrary.instance
 
-    resp = book_library.get_books_and_collection_info(page, query, false)
+    resp = book_library.get_books_and_collection_info(page, query, reserved)
 
     render :json => resp.as_json
   end

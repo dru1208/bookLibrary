@@ -6,10 +6,11 @@ const useBookLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [query, setQuery] = useState("")
+  const [reserved, setReserved] = useState(false)
 
   const bookApiCall = (page, query) => {
     axios
-      .get(`/books?page=${page}&query=${query}`)
+      .get(`/books?page=${page}&query=${query}&reserved=${reserved}`)
       .then((resp) => {
         const { data } = resp
         setBooks(data.books)
@@ -36,6 +37,10 @@ const useBookLibrary = () => {
     setQuery("")
   }
 
+  const flipReserved = () => {
+    setReserved(prev => !prev)
+  }
+
   return {
     books,
     currentPage,
@@ -44,7 +49,9 @@ const useBookLibrary = () => {
     query,
     onQueryUpdate: setQuery,
     onSearchTriggered,
-    onViewAll
+    onViewAll,
+    reserved,
+    flipReserved
   }
 }
 
