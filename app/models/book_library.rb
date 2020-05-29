@@ -28,9 +28,31 @@ class BookLibrary
   end
 
   def get_books_by_page(page_number)
-    # handle case if page_number is greater than total_book count, return last page
-    total_books = @books.count
-    subset_start_index = page_number * 3 - 3
-    @books[subset_start_index, @page_size]
+    total_book_count = @books.count
+    total_pages = calculate_total_pages(total_book_count)
+
+    start_index = calculate_start_index(page_number, total_pages)
+    @books[start_index, @page_size]
+  end
+
+  private
+
+  def calculate_start_index(page_number, total_pages)
+    if page_number <= total_pages
+      page_number * 3 - 3
+    else
+      total_pages * 3 - 3
+    end
+  end
+
+  def calculate_total_pages(count)
+    pages_float = count / 3.0
+
+    should_increment_max_pages?(pages_float) ? pages_float.to_i + 1 : pages_float.to_i
+  end
+
+  def should_increment_max_pages?(pages_float)
+    pages_int = pages_float.to_i
+    pages_float - pages_int > 0
   end
 end
