@@ -5,9 +5,10 @@ import BookListing from "./BookListing"
 
 const App = () => {
   const [books, setBooks] = useState([])
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
-    axios.get("/books").then((resp) => {
+    axios.get(`/books?page=${page}`).then((resp) => {
       const booksFromLibrary = resp.data
       setBooks(booksFromLibrary)
     })

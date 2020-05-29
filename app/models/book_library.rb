@@ -28,6 +28,7 @@ class BookLibrary
   end
 
   def get_books_by_page(page_number)
+    # handle case if page_number is greater than total_book count, return last page
     total_books = @books.count
     subset_start_index = page_number * 3 - 3
     @books[subset_start_index, @page_size]
