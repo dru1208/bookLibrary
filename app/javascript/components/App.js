@@ -6,11 +6,13 @@ import BookListing from "./BookListing"
 const App = () => {
   const [books, setBooks] = useState([])
   const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
     axios.get(`/books?page=${page}`).then((resp) => {
-      const booksFromLibrary = resp.data
-      setBooks(booksFromLibrary)
+      const { data } = resp
+      setBooks(data.books)
+      setTotalPages(data.totalPages)
     })
   }, [])
 

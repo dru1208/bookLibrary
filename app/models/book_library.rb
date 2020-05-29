@@ -27,10 +27,11 @@ class BookLibrary
     @books.select { |book| book[:quantity] == 0 }
   end
 
-  def get_books_by_page(page_number)
-    total_book_count = @books.count
-    total_pages = calculate_total_pages(total_book_count)
+  def total_pages
+    calculate_total_pages(@books.count)
+  end
 
+  def get_books_by_page(page_number)
     start_index = calculate_start_index(page_number, total_pages)
     @books[start_index, @page_size]
   end
