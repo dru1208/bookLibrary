@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 
-import BookListing from "./BookListing"
+import BookListings from "./BookListing.jsx"
+import PageSelection from "./PageSelection.jsx"
 
 const App = () => {
   const [books, setBooks] = useState([])
-  const [page, setPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
-    axios.get(`/books?page=${page}`).then((resp) => {
+    axios.get(`/books?page=${currentPage}`).then((resp) => {
       const { data } = resp
       setBooks(data.books)
       setTotalPages(data.totalPages)
@@ -19,11 +20,12 @@ const App = () => {
   return (
     <div>
       <h1>Book Collection</h1>
-      {
-        books.map((book, index) => {
-          return <BookListing key={index} book={book} />
-        })
-      }
+      <BookListings books={books} />
+      <PageSelection
+        totalPages={totalPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   )
 }
