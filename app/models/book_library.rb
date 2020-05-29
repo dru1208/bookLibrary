@@ -35,7 +35,7 @@ class BookLibrary
       }
     else
       filtered = filter_books_by_query(query)
-      paginated_books = get_books_by_page(1, filtered)
+      paginated_books = get_books_by_page(page_number, filtered)
       total_pages = calculate_total_pages(filtered.count)
       current_page = page_number > total_pages ? total_pages : page_number
       {
