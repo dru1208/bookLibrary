@@ -19,41 +19,67 @@ class BookLibrary
     @page_size = 3
   end
 
-  def get_books
-    @books
-  end
+  # def get_reserved_books
+  #   @books.select { |book| book[:quantity] == 0 }
+  # end
 
-  def get_reserved_books
-    @books.select { |book| book[:quantity] == 0 }
-  end
-
-  def total_pages
-    calculate_total_pages(@books.count)
-  end
-
-  def get_books_by_page(page_number)
-    start_index = calculate_start_index(page_number, total_pages)
-    @books[start_index, @page_size]
+  def get_books_and_collection_info(page_number, query)
+    if query.blank?
+      paginated_books = get_books_by_page(page_number, @books)
+      total_pages = calculate_total_pages(@books.count)
+      current_page = page_number > total_pages ? total_pages : page_number
+      {
+        books: paginated_books,
+        totalPages: total_pages,
+        currentPage: current_page
+      }
+    else
+      filtered = filter_books_by_query(query)
+      paginated_books = get_books_by_page(1, filtered)
+      total_pages = calculate_total_pages(filtered.count)
+      current_page = page_number > total_pages ? total_pages : page_number
+      {
+        books: paginated_books,
+        totalPages: total_pages,
+        currentPage: current_page
+      }
+    end
   end
 
   private
 
-  def calculate_start_index(page_number, total_pages)
-    if page_number <= total_pages
+  # methods for accessing the books on a specific page
+
+  def get_books_by_page(page_number, books)
+    start_index = calculate_start_index(page_number, calculate_total_pages(books.count))
+    books[start_index, @page_size]
+  end
+
+  def calculate_start_index(page_number, total_pages_num)
+    if page_number <= total_pages_num
       page_number * 3 - 3
     else
-      total_pages * 3 - 3
+      total_pages_num * 3 - 3
     end
   end
 
-  def calculate_total_pages(count)
-    pages_float = count / 3.0
+  # methods for applying query filter
 
-    should_increment_max_pages?(pages_float) ? pages_float.to_i + 1 : pages_float.to_i
+  def filter_books_by_query(query)
+    processed_query = query.downcase
+    @books.select do |book|
+      processed_title = book[:title].downcase
+      processed_title.include?(processed_query)
+    end
   end
 
-  def should_increment_max_pages?(pages_float)
+  # methods for calculating total pages
+
+  def calculate_total_pages(count)
+    pages_float = count / 3.0
     pages_int = pages_float.to_i
-    pages_float - pages_int > 0
+    extra_unfilled_page_present = pages_float - pages_int > 0
+
+    extra_unfilled_page_present ? pages_float.to_i + 1 : pages_float.to_i
   end
 end
